@@ -63,7 +63,13 @@ public class LinkedList<T> {
 	public Node<T> removeAtHead() {
 		
 		Node<T> temp = head;
-		head = head.getNext();
+		
+		if(head == tail) {
+			head = null;
+			tail = null;
+		} else {
+			head = head.getNext();
+		}
 		
 		return temp;
 		
