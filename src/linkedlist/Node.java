@@ -24,10 +24,32 @@ public class Node<T> {
 	public void setNext(Node<T> next) {
 		this.next = next;
 	}
+	
+	public void insertAtTail(Node<T> temp) {
+		
+		if(next == null) {
+			next = temp;
+		} else {
+			next.insertAtTail(temp);
+		}
+		
+	}
+	
+	public Node<T> find(T data) {
+		
+		if(this.data == data) {
+			return this;
+		} else if(this.next != null) {
+			return next.find(data);
+		} else {
+			return null;
+		}
+		
+	}
 
 	@Override
 	public String toString() {
 		return "Node [data=" + data + "]";
 	}
-		
+	
 }

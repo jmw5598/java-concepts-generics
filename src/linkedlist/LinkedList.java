@@ -3,7 +3,6 @@ package linkedlist;
 public class LinkedList<T> {
 	
 	private Node<T> head;
-	private Node<T> tail;
 	private int size = 0;
 	
 	public LinkedList() {}
@@ -11,61 +10,72 @@ public class LinkedList<T> {
 	public Node<T> getHead() {
 		return head;
 	}
-
-	public void setHead(Node<T> head) {
-		this.head = head;
-	}
-
-	public Node<T> getTail() {
-		return tail;
-	}
-
-	public void setTail(Node<T> tail) {
-		this.tail = tail;
-	}
-
-	public int getSize() {
-		return size;
-	}
-
-	public void setSize(int size) {
-		this.size = size;
-	}
 	
 	public void insertAtHead(T data) {
+		
 		Node<T> temp = new Node<>(data);
 		
 		if(head == null) {
 			head = temp;
-			tail = temp;
 			size++;
 		} else {
 			temp.setNext(head);
 			head = temp;
 			size++;
 		}
+		
 	}
 	
 	public void insertAtTail(T data) {
+		
 		Node<T> temp = new Node<>(data);
 		
 		if(head == null) {
 			head = temp;
-			tail = temp;
-			size++;
 		} else {
-			tail.setNext(temp);
-			tail = temp;
+			head.insertAtTail(temp);
+			size++;
 		}
 		
 	}
 	
-	public Node<T> removeAtHead() {
+	public Node<T> find(T data) {
 		
-		Node<T> temp = head;
-		head = head.getNext();
-		
-		return temp;
+		if(head == null) {
+			return null;
+		} else {
+			return head.find(data);
+		}
 		
 	}
+	
+	public void remove(T data) {
+		
+		if(head != null && head.getData() == data) {
+			head = head.getNext();
+			size--;
+		} else {
+			
+			Node<T> prev = head;
+			Node<T> current = head.getNext();
+			
+			while(current != null) {
+				
+				if(current.getData() == data) {
+					prev.setNext(current.getNext());
+					size--;
+				}
+				
+				prev = current;
+				current = current.getNext();
+			}
+		}
+	}
+	
+	public int size() {
+		return size;
+	}
+	
+	
+	
 }
